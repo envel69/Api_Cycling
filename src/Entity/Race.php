@@ -2,94 +2,41 @@
 
 namespace App\Entity;
 
-use App\Repository\RaceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: RaceRepository::class)]
+#[ORM\Entity]
 class Race
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['race'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Country = null;
+    #[Groups(['race'])]
+    private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Name = null;
+    #[Groups(['race'])]
+    private ?string $location = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Id_Stage = null;
+    #[ORM\Column(type: "datetime")]
+    #[Groups(['race'])]
+    private ?\DateTimeInterface $startDate = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Teams = null;
+    #[ORM\Column(type: "datetime", nullable: true)]
+    #[Groups(['race'])]
+    private ?\DateTimeInterface $endDate = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Id_country = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getCountry(): ?string
-    {
-        return $this->Country;
-    }
-
-    public function setCountry(string $Country): static
-    {
-        $this->Country = $Country;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->Name;
-    }
-
-    public function setName(string $Name): static
-    {
-        $this->Name = $Name;
-
-        return $this;
-    }
-
-    public function getIdStage(): ?string
-    {
-        return $this->Id_Stage;
-    }
-
-    public function setIdStage(string $Id_Stage): static
-    {
-        $this->Id_Stage = $Id_Stage;
-
-        return $this;
-    }
-
-    public function getTeams(): ?string
-    {
-        return $this->Teams;
-    }
-
-    public function setTeams(string $Teams): static
-    {
-        $this->Teams = $Teams;
-
-        return $this;
-    }
-
-    public function getIdCountry(): ?string
-    {
-        return $this->Id_country;
-    }
-
-    public function setIdCountry(string $Id_country): static
-    {
-        $this->Id_country = $Id_country;
-
-        return $this;
-    }
+    public function getId(): ?int { return $this->id; }
+    public function getName(): ?string { return $this->name; }
+    public function setName(string $name): self { $this->name = $name; return $this; }
+    public function getLocation(): ?string { return $this->location; }
+    public function setLocation(string $location): self { $this->location = $location; return $this; }
+    public function getStartDate(): ?\DateTimeInterface { return $this->startDate; }
+    public function setStartDate(\DateTimeInterface $startDate): self { $this->startDate = $startDate; return $this; }
+    public function getEndDate(): ?\DateTimeInterface { return $this->endDate; }
+    public function setEndDate(?\DateTimeInterface $endDate): self { $this->endDate = $endDate; return $this; }
 }

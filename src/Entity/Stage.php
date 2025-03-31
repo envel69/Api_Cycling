@@ -2,57 +2,35 @@
 
 namespace App\Entity;
 
-use App\Repository\StageRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: StageRepository::class)]
+#[ORM\Entity]
 class Stage
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['stage'])]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $Date = null;
+    #[ORM\Column(length: 255)]
+    #[Groups(['stage'])]
+    private ?string $name = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
-    private ?string $Id_Controls = null;
+    #[ORM\Column]
+    #[Groups(['stage'])]
+    private ?int $orderNumber = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    #[ORM\Column(type: "datetime")]
+    #[Groups(['stage'])]
+    private ?\DateTimeInterface $date = null;
 
-    public function setId(string $Id): static
-    {
-        $this->Id = $Id;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->Date;
-    }
-
-    public function setDate(\DateTimeInterface $Date): static
-    {
-        $this->Date = $Date;
-
-        return $this;
-    }
-
-    public function getIdControls(): ?string
-    {
-        return $this->Id_Controls;
-    }
-
-    public function setIdControls(string $Id_Controls): static
-    {
-        $this->Id_Controls = $Id_Controls;
-
-        return $this;
-    }
+    public function getId(): ?int { return $this->id; }
+    public function getName(): ?string { return $this->name; }
+    public function setName(string $name): self { $this->name = $name; return $this; }
+    public function getOrderNumber(): ?int { return $this->orderNumber; }
+    public function setOrderNumber(int $orderNumber): self { $this->orderNumber = $orderNumber; return $this; }
+    public function getDate(): ?\DateTimeInterface { return $this->date; }
+    public function setDate(\DateTimeInterface $date): self { $this->date = $date; return $this; }
 }

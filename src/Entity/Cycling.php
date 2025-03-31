@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\CyclingRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 #[ORM\Entity(repositoryClass: CyclingRepository::class)]
 class Cycling
@@ -12,27 +14,35 @@ class Cycling
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+     #[Groups(['cycling'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+     #[Groups(['cycling'])]
     private ?string $Name = null;
 
     #[ORM\Column(length: 255)]
+     #[Groups(['cycling'])]
     private ?string $Username = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+     #[Groups(['cycling'])]
     private ?\DateTimeInterface $Date_Of_Birth = null;
 
     #[ORM\Column]
+     #[Groups(['cycling'])]
     private ?int $Weight = null;
 
     #[ORM\Column]
+     #[Groups(['cycling'])]
     private ?int $Size = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['cycling'])]
     private ?string $Team = null;
-
+    
     #[ORM\Column(length: 255)]
+    #[Groups(['cycling'])]
     private ?string $Nationality = null;
 
     public function getId(): ?int
